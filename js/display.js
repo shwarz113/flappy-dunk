@@ -29,9 +29,8 @@ class Display {
 
   /**
    * Handles the resizing of the canvas.
-   * @param {Event} event - The resize event
    */
-  resize(event) {
+  resize() {
     let width = document.documentElement.clientWidth;
     let height = document.documentElement.clientHeight;
 
@@ -43,9 +42,8 @@ class Display {
 
   /**
    * Handles the resizing of the canvas.
-   * @param {Event} event - The resize event
    */
-  handleResize(event) {
-    this.resize(event);
+  handleResize() {
+    this.resize();
   }
 }
