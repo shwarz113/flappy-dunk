@@ -1,15 +1,15 @@
 class Controller {
   constructor() {
-    this.down = new Controller.ButtonInput();
+    // this.down = new Controller.ButtonInput();
     this.left = new Controller.ButtonInput();
     this.right = new Controller.ButtonInput();
     this.up = new Controller.ButtonInput();
   }
 
-  keyDownUp(event) {
-    const down = event.type === 'keydown' ? true : false;
+  keyDownUp(type, key) {
+    const down = type === 'keydown' ? true : false;
 
-    switch (event.key) {
+    switch (key) {
       case 'ArrowLeft':
         this.left.getInput(down);
         break;
@@ -18,18 +18,11 @@ class Controller {
         break;
       case 'ArrowUp':
         this.up.getInput(down);
-        break;
-      case 'ArrowDown':
-        this.down.getInput(down);
-        break;
     }
-
-    alert(`You pressed a key ${event.key}!`);
   }
-
-  handleKeyDownUp(event) {
-    this.keyDownUp(event);
-  }
+  // handleKeyDownUp(event) {
+  //   this.keyDownUp(event);
+  // }
 }
 
 Controller.ButtonInput = class {
@@ -37,7 +30,7 @@ Controller.ButtonInput = class {
     this.active = this.down = false;
   }
   getInput(down) {
-    if (this.down != down) {
+    if (this.down !== down) {
       this.active = down;
     }
     this.down = down;

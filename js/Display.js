@@ -11,11 +11,12 @@ class Display {
     this.context = canvas.getContext('2d');
   }
 
-  /**
-   * Fills the colour in the buffer canvas.
-   * @param {String} colour - The colour to fill the context of buffer canvas
-   */
-  renderColour(colour) {
+  drawRectangle(x, y, width, height, colour) {
+    this.buffer.fillStyle = colour;
+    this.buffer.fillRect(Math.floor(x), Math.floor(y), width, height);
+  }
+
+  fill(colour) {
     this.buffer.fillStyle = colour;
     this.buffer.fillRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
   }
@@ -30,20 +31,14 @@ class Display {
   /**
    * Handles the resizing of the canvas.
    */
-  resize() {
-    let width = document.documentElement.clientWidth;
-    let height = document.documentElement.clientHeight;
-
-    this.context.canvas.height = height - 32;
-    this.context.canvas.width = width - 32;
-
-    this.render();
-  }
-
-  /**
-   * Handles the resizing of the canvas.
-   */
-  handleResize() {
-    this.resize();
+  resize(width, height, heightWidthRatio) {
+    if (height / width > heightWidthRatio) {
+      this.context.canvas.height = width * heightWidthRatio;
+      this.context.canvas.width = width;
+    } else {
+      this.context.canvas.height = height;
+      this.context.canvas.width = height / heightWidthRatio;
+    }
+    this.context.imageSmoothingEnabled = false;
   }
 }

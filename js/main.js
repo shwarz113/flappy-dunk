@@ -3,15 +3,41 @@
  * Renders after loading only!
  */
 window.addEventListener('load', () => {
-  const render = () => {
-    display.renderColour(game.colour);
+  // const render = () => {
+  //   display.renderColour(game.colour);
+  //   display.render();
+  // }
+
+  const keyDownUp = (event) => {
+    controller.keyDownUp(event.type, event.key);
+  }
+
+  const resize = () => {
+    display.resize(document.documentElement.clientWidth - 32, document.documentElement.clientHeight - 32, game.world.height / game.world.width);
     display.render();
   }
 
+  const render = () => {
+    display.fill(game.world.backgroundColor);
+    display.drawRectangle(game.world.player.x, game.world.player.y, game.world.player.width, game.world.player.height, game.world.player.colour);
+    display.render();
+  }
+  // const update = () => {
+  //   game.update();
+  // }
   const update = () => {
+    if (controller.left.active) {
+      game.world.player.moveLeft();
+    }
+    if (controller.right.active) {
+      game.world.player.moveRight();
+    }
+    if (controller.up.active) {
+      game.world.player.jump();
+      controller.up.active = false;
+    }
     game.update();
   }
-
   /**
    * Handles user input.
    */
@@ -27,18 +53,24 @@ window.addEventListener('load', () => {
    */
   const game = new Game();
 
-  const engine = new Engine(1000 / 30, render, update);
+  /**
+   * Handles the rendering and update on certain animation frame.
+   */
+  const engine = new Engine(1000 / FPS, render, update);
 
 
   //////////////////////
   /// INITIALIZATION ///
   //////////////////////
 
-  window.addEventListener('resize', display.handleResize.bind(display));
-  window.addEventListener('keydown', controller.handleKeyDownUp.bind(controller));
-  window.addEventListener('keyup', controller.handleKeyDownUp.bind(controller));
+  display.buffer.canvas.height = game.world.height;
+  display.buffer.canvas.width = game.world.width;
 
-  display.resize();
+  window.addEventListener('resize', resize);
+  window.addEventListener('keydown', keyDownUp);
+  window.addEventListener('keyup', keyDownUp);
+
+  resize();
   engine.start();
 
 });
