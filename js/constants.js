@@ -3,4 +3,5 @@
 const FPS = 60;
 
 // Ball
-RADIUS = 112;
+const RADIUS = 112;
+

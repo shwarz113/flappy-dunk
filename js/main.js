@@ -19,7 +19,8 @@ window.addEventListener('load', () => {
 
   const render = () => {
     display.fill(game.world.backgroundColor);
-    display.drawRectangle(game.world.player.x, game.world.player.y, game.world.player.width, game.world.player.height, game.world.player.colour);
+    // display.drawRectangle(game.world.player.x, game.world.player.y, game.world.player.width, game.world.player.height, game.world.player.colour);
+    // display.drawObject(game.)
     display.render();
   }
   // const update = () => {

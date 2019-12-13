@@ -16,6 +16,10 @@ class Display {
     this.buffer.fillRect(Math.floor(x), Math.floor(y), width, height);
   }
 
+  drawObject(image, sourceX, sourceY, destinationX, destinationY, width, height) {
+    this.buffer.drawImage(image, sourceX, sourceY, width, height, Math.round(destinationX), Math.round(destinationY), width, height);
+  }
+
   fill(colour) {
     this.buffer.fillStyle = colour;
     this.buffer.fillRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
