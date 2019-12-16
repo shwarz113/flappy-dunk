@@ -11,25 +11,18 @@ class Display {
     this.context = canvas.getContext('2d');
   }
 
-  drawRectangle(x, y, width, height, colour) {
-    this.buffer.fillStyle = colour;
-    this.buffer.fillRect(Math.floor(x), Math.floor(y), width, height);
-  }
-
   drawObject(image, sourceX, sourceY, destinationX, destinationY, width, height) {
-    this.buffer.drawImage(image, sourceX, sourceY, width, height, Math.round(destinationX), Math.round(destinationY), width, height);
-  }
-
-  fill(colour) {
-    this.buffer.fillStyle = colour;
-    this.buffer.fillRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
-  }
-
-  /**
-   * Fills the actual canvas with the buffer canvas.
-   */
-  render() {
-    this.context.drawImage(this.buffer.canvas, 0, 0, this.buffer.canvas.width, this.buffer.canvas.height, 0, 0, this.context.canvas.width, this.context.canvas.height);
+    this.buffer.drawImage(
+      image,
+      sourceX,
+      sourceY,
+      width,
+      height,
+      Math.round(destinationX),
+      Math.round(destinationY),
+      width,
+      height
+    );
   }
 
   /**
@@ -44,5 +37,12 @@ class Display {
       this.context.canvas.width = height / heightWidthRatio;
     }
     this.context.imageSmoothingEnabled = false;
+  }
+
+  /**
+   * Fills the actual canvas with the buffer canvas.
+   */
+  render() {
+    this.context.drawImage(this.buffer.canvas, 0, 0, this.buffer.canvas.width, this.buffer.canvas.height, 0, 0, this.context.canvas.width, this.context.canvas.height);
   }
 }

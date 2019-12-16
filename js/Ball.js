@@ -1,13 +1,17 @@
 class Ball {
-  constructor(x, y, radius, acceleration) {
+  constructor(x,
+    y,
+    radius,
+    velocityX = 0,
+    velocityY = 0
+  ) {
     this.x = x;
     this.y = y;
     this.radius = radius;
     // this.rotating = false;
     this.currentFrame = 0;
-    this.acceleration = acceleration;
-    this.velocityX = 0;
-    this.velocityY = 0;
+    this.velocityX = velocityX;
+    this.velocityY = velocityY;
     this.directionX = 1;
   }
 
@@ -21,5 +25,11 @@ class Ball {
 
   get diameter() {
     return this.radius * 2;
+  }
+  bounce() {
+    this.velocityY -= 10;
+  }
+  update() {
+    this.y += this.velocityY;
   }
 }

@@ -13,6 +13,8 @@ class Engine {
   }
 
   run(timeStamp) {
+    this.animationFrameRequest = window.requestAnimationFrame(this.handleRun.bind(this));
+
     this.accumulatedTime += timeStamp - this.time;
     this.time = timeStamp;
 
@@ -33,8 +35,6 @@ class Engine {
       this.updated = false;
       this.render(timeStamp);
     }
-
-    this.animationFrameRequest = window.requestAnimationFrame(this.handleRun.bind(this));
   }
 
   handleRun(timeStep) {

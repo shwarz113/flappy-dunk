@@ -3,42 +3,53 @@
  * Renders after loading only!
  */
 window.addEventListener('load', () => {
-  // const render = () => {
-  //   display.renderColour(game.colour);
-  //   display.render();
-  // }
 
   const keyDownUp = (event) => {
     controller.keyDownUp(event.type, event.key);
   }
 
   const resize = () => {
-    display.resize(document.documentElement.clientWidth - 32, document.documentElement.clientHeight - 32, game.world.height / game.world.width);
+    display.resize(
+      document.documentElement.clientWidth,
+      document.documentElement.clientHeight,
+      game.world.height / game.world.width
+    );
     display.render();
   }
 
   const render = () => {
-    display.fill(game.world.backgroundColor);
-    // display.drawRectangle(game.world.player.x, game.world.player.y, game.world.player.width, game.world.player.height, game.world.player.colour);
-    // display.drawObject(game.)
+    // let frame = undefined;
+
+    // display.fill(game.world.backgroundColor);
+
+    display.drawObject(
+      assetsManager.spritesheet,
+      1,
+      1,
+      game.world.ball.x,
+      game.world.ball.y,
+      game.world.ball.radius * 2,
+      game.world.ball.radius * 2
+    );
+
     display.render();
   }
-  // const update = () => {
-  //   game.update();
-  // }
+
   const update = () => {
-    if (controller.left.active) {
-      game.world.player.moveLeft();
-    }
-    if (controller.right.active) {
-      game.world.player.moveRight();
-    }
     if (controller.up.active) {
-      game.world.player.jump();
+      game.world.ball.bounce();
       controller.up.active = false;
     }
     game.update();
+    // return;
   }
+
+
+  /**
+   * Handles assets.
+   */
+  const assetsManager = new AssetsManager();
+
   /**
    * Handles user input.
    */
@@ -66,12 +77,16 @@ window.addEventListener('load', () => {
 
   display.buffer.canvas.height = game.world.height;
   display.buffer.canvas.width = game.world.width;
+  display.buffer.imageSmoothingEnabled = false;
+
+  assetsManager.requestImage('images/spritesheet.png', (image) => {
+    assetsManager.spritesheet = image;
+    resize();
+    engine.start();
+  });
+
 
   window.addEventListener('resize', resize);
   window.addEventListener('keydown', keyDownUp);
   window.addEventListener('keyup', keyDownUp);
-
-  resize();
-  engine.start();
-
 });

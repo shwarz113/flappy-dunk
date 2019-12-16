@@ -8,6 +8,20 @@ class Game {
     this.velocityY = 0;
     this.height = 400;
     this.width = 400;
+    this.invertGravity = false;
+    this.madHoop = false;
+    this.world = new BasicGame(
+      this.accelerationX,
+      this.gravity,
+      this.velocityX,
+      this.velocityY,
+      this.numberOfHoops,
+      this.invertGravity,
+      this.madHoop
+    );
+  }
+  update() {
+    this.world.update();
   }
 }
 
